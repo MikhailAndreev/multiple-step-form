@@ -24,17 +24,17 @@ class OrderForm extends Component {
         super(props);
 
         this.state = {
-            data: [],
+            // data: [],
             step: 1,
-            nameError:'',
+            // nameError:'',
             error: false,
             fullName:'',
             daytimeTel:'',
-            street:'',
-            suite:'',
-            city:'',
-            country:'',
-            zipCode:'',
+            // street:'',
+            // suite:'',
+            // city:'',
+            // country:'',
+            // zipCode:'',
             form1Errors: {
                 fullName:'',
                 daytimeTel:'',
@@ -44,22 +44,22 @@ class OrderForm extends Component {
                 // country:'',
                 // zipCode:'',
             },
-            form2Errors: {
-                cardFullName:'',
-                email:'',
-                billingSuite:'',
-                billingCity:'',
-                billingCountry:'',
-                billingZip:'',
-                billingStreet:''
-            },
-            cardFullName:'',
-            email:'',
-            billingSuite:'',
-            billingCity:'',
-            billingCountry:'',
-            billingZip:'',
-            billingStreet:''
+            // form2Errors: {
+            //     cardFullName:'',
+            //     email:'',
+            //     billingSuite:'',
+            //     billingCity:'',
+            //     billingCountry:'',
+            //     billingZip:'',
+            //     billingStreet:''
+            // },
+            // cardFullName:'',
+            // email:'',
+            // billingSuite:'',
+            // billingCity:'',
+            // billingCountry:'',
+            // billingZip:'',
+            // billingStreet:''
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -118,17 +118,17 @@ class OrderForm extends Component {
 
     handleChange(event) {
         const {name, value} = event.target;
-       let formErrors = this.state.form1Errors;
+       let form1Errors = {...this.state.form1Errors};
 
        switch (name) {
            case 'fullName' :
-               formErrors.fullName =
+               form1Errors.fullName =
                    value.length === 0
                        ? 'minimum 3 characters required'
                        : '';
                break;
            case 'daytimeTel' :
-               formErrors.daytimeTel =
+               form1Errors.daytimeTel =
                    value.length === 0
                        ? 'minimum 3 characters required'
                        : '';
@@ -137,7 +137,7 @@ class OrderForm extends Component {
                break;
        }
        this.setState({
-           formErrors, [name]:value
+           form1Errors, [name]:value
        })
     }
 
@@ -148,14 +148,20 @@ class OrderForm extends Component {
 
            console.log('ITS OK !')
         }else {
-            this.setState(prevState => ({
-                ...prevState,
-                form1Errors: {
-                    fullName: 'Please enter recipient full name',
-                    daytimeTel: 'error'
-                }
-            }));
+         if(this.state.fullName === ''){
+             this.setState(prevState => ({
+                     ...prevState,
+                     form1Errors: {
+                         ...prevState,
+                         fullName: 'adsadads'
+
+                        }
+                     }
+             ))
+         }
+
             console.log('there is an error !')
+            console.log(this.state.form1Errors)
         }
 
     };
@@ -209,7 +215,7 @@ class OrderForm extends Component {
 
                     {this.state.step === 1 &&
 
-                         <form noValidate className={styles.formSec}>
+                         <form  className={styles.formSec}>
                     <h1>
                         Shipping info
                     </h1>
